@@ -1,0 +1,112 @@
+package session8;
+
+public class BankAtm
+{
+	int atm_id;
+	String bank_name;
+	String location;
+	double balance=15000;
+	
+	
+	BankAtm()
+	{
+	System.out.println("Welcome");	
+	}
+	
+public double withdraw(double amount)
+{
+	balance=getbalance();
+	System.out.println("Balance="+balance);
+	System.out.println("Amount to be withdrawed is:" +amount);
+	
+	if((balance-amount)>=0 && (balance-amount)<10000) 
+	{
+		try {
+			throw new BankAtmException();
+		} 
+		catch (BankAtmException e)
+		{
+			System.out.println("Exception raised "+e.getMessage());
+		    System.out.println("Cannot withdraw:" +balance);
+		}
+		
+	}
+	if(balance<amount)
+	{
+		System.out.println("Balance is less than the withdrawal amount");
+		}
+	if(balance>amount&& balance>10000)
+	{
+	balance=balance-amount;
+	
+	System.out.println("Balance in Atm after withdraw is:" +balance);	
+	}
+	return balance;
+	}
+
+public void deposit(double amount)
+{
+	balance=getbalance();
+	System.out.println("Balance before depositing:" +balance);
+   balance=balance+amount;
+   System.out.println("Balance after depositing:"+balance);
+
+}
+
+
+public void setbalance(double bal)
+{
+	this.balance=bal;
+	System.out.println("balance in atm is:" +balance);
+	
+}
+
+public double getbalance()
+{
+return balance;	
+}
+}
+
+class BankAtmException extends Exception
+{
+	String msg="Atm Balance less than 10000,so Cannot withdraw";
+	
+	public String  getMessage()
+	{
+		return msg;
+	}
+	
+}
+
+
+
+
+package session8;
+
+public class Bank_Atm
+{
+public static void main(String[] args) 
+	{
+	
+		BankAtm ba1=new BankAtm();
+		BankAtm ba2=new BankAtm();
+		BankAtm ba3=new BankAtm();
+		
+		 
+	double value1=ba1.withdraw(50000);
+	System.out.println("First object withdrawing"+value1);
+	
+	ba2.setbalance(value1);			
+	double value2=ba2.withdraw(500);   		
+    ba3.setbalance(value2);        
+
+    double value3=ba3.withdraw(4500);
+    ba3.withdraw(100);
+    ba3.setbalance(value3);
+    ba3.deposit(5000);
+      
+		}
+
+}
+
+
